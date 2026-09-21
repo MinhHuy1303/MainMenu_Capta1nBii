@@ -37,6 +37,9 @@ namespace MainMenuUI
         public void Open()
         {
             if (menuVisual != null) menuVisual.SetActive(true);
+            // Đẩy Pause Menu xuống cuối danh sách con của Canvas để luôn vẽ đè lên mọi UI khác
+            // (ví dụ SelectLevelPanel được bật sau vẫn nằm dưới).
+            transform.SetAsLastSibling();
             Time.timeScale = 0f;
         }
 
@@ -56,7 +59,11 @@ namespace MainMenuUI
         public void OpenSettings()
         {
             if (settingsPanel != null)
+            {
                 settingsPanel.SetActive(true);
+                // Bảng Cài Đặt phải nằm trên Pause Menu (vốn đã là sibling cuối) để còn thao tác được.
+                settingsPanel.transform.SetAsLastSibling();
+            }
             else
                 Debug.LogWarning("[PauseMenuController] Chưa gán settingsPanel cho Scene này.", this);
         }
